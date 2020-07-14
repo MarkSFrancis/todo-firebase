@@ -37,7 +37,6 @@ export default class TodoList extends React.Component<{}, { todos: todo[] | unde
 
       this.cleanupGetTodosSub = this.db.todos(userId)
         .onSnapshot((next) => {
-          console.log('Snapshot', mapToData(next));
           this.setState({
             todos: mapToData(next),
           });
