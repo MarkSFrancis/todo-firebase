@@ -11,7 +11,7 @@ export function mapToData<T extends { id: string }>(data: firebase.firestore.Que
   })) as T[];
 }
 
-export class db {
+export class Db {
   constructor(public db = getDb()) {
   }
 
