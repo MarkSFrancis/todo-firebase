@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { isLoggedIn, signIn, signOut, onSignInOrOut } from "../firebase";
+import { isLoggedIn, onSignInOrOut, signIn, signOut } from "../../firebase";
+import GoogleLogo from "./google-logo.svg";
 
 class SignIn extends React.Component<{}, { isSignedIn: boolean }> {
   constructor(props: {}) {
@@ -34,8 +35,13 @@ class SignIn extends React.Component<{}, { isSignedIn: boolean }> {
       );
     } else {
       return (
-        <Button variant="primary" onClick={() => signIn()}>
-          Sign In
+        <Button
+          variant="outline-dark"
+          style={{ paddingLeft: 0, paddingTop: 0, paddingBottom: 0 }}
+          onClick={() => signIn()}
+        >
+          <img src={GoogleLogo} alt="google logo" width="35" className="mr-2" />
+          Sign in with Google
         </Button>
       );
     }

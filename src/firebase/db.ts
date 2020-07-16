@@ -7,7 +7,16 @@ export function getDb() {
   }
 
   const firestore = firebase.app().firestore();
-  return db = new Db(firestore);
+  if (window.location.hostname === "localhost") {
+    firestore.settings({
+      host: "localhost:8080",
+      ssl: false,
+    });
+
+    console.log('Changing settings');
+  }
+
+  return (db = new Db(firestore));
 }
 
 export function getNamedDb(name: string) {

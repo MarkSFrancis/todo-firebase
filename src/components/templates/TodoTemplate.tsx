@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import NewTodo from "../components/NewTodo";
-import TodoItem, { Todo } from "../components/TodoItem";
-import { getDb, getUserId, mapToData, onSignInOrOut } from "../firebase";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import { getDb, getUserId, mapToData, onSignInOrOut } from "../../firebase";
+import SignIn from "../molecules/SignIn";
+import { Todo } from "../molecules/TodoItem";
+import TodoList from "../organisms/TodoList";
 
 export default () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -21,6 +22,8 @@ export default () => {
         .onSnapshot((next) => {
           setTodos(mapToData(next));
         });
+    } else {
+      setTodos(undefined);
     }
   }, [userId]);
 
@@ -30,8 +33,7 @@ export default () => {
       .add({ text, complete: false });
   }
 
-  function setCompleteStatus(todo: Todo, complete: boolean) {
-    todo.complete = complete;
+  function updateTodo(todo: Todo) {
     getDb()
       .todos(getUserId() || "")
       .doc(todo.id.toString())
@@ -40,24 +42,28 @@ export default () => {
       });
   }
 
+  if (!userId) {
+    return (
+      <Jumbotron className="my-4">
+        <h1>Welcome to Todo!</h1>
+        <p>
+          This is a simple app, built with React and Firebase. In order to use
+          it, you'll need to sign in to Google.
+        </p>
+        <p>
+          <SignIn />
+        </p>
+      </Jumbotron>
+    );
+  }
+
   if (!todos) {
-    return <div>Loading</div>;
+    return <h3>Loading..</h3>;
   }
 
   return (
-    <div>
-      <h1 className="my-4">Todo</h1>
-      <NewTodo createTodo={(text) => createTodo(text)} />
-      <hr />
-      <ListGroup>
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onCompleteChange={(complete) => setCompleteStatus(todo, complete)}
-          />
-        ))}
-      </ListGroup>
-    </div>
+    <>
+      <TodoList createTodo={createTodo} todos={todos} updateTodo={updateTodo} />
+    </>
   );
 };

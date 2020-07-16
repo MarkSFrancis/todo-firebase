@@ -1,8 +1,8 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import "./App.scss";
-import NavBar from "./components/NavBar";
-import TodoList from "./containers/TodoList";
+import NavBar from "./components/molecules/NavBar";
+import TodoTemplate from "./components/templates/TodoTemplate";
 import { firebaseConfig, setup } from "./firebase";
 
 setup(firebaseConfig);
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <NavBar></NavBar>
       <Container>
-        <TodoList></TodoList>
+        <TodoTemplate></TodoTemplate>
       </Container>
     </div>
   );
