@@ -7,6 +7,13 @@ A simple todo app, built on [Firebase](https://console.firebase.google.com/)
 - Node
 - [Firebase CLI](https://firebase.google.com/docs/emulator-suite)
 - Yarn
+- API Key for Firebase (use a .env file to set this)
+
+Example .env file:
+
+```
+REACT_APP_FIREBASE_API_KEY=YOUR_SECRET_HERE
+```
 
 # Debug on local
 
