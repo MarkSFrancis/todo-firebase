@@ -6,11 +6,13 @@ import { Todo } from "../molecules/TodoItem";
 import TodoList from "../organisms/TodoList";
 
 export default () => {
+  const [loadedSignIn, setLoadedSignIn] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | undefined>(undefined);
   const [todos, setTodos] = useState<Todo[] | undefined>(undefined);
 
   useEffect(() => {
     return onSignInOrOut(() => {
+      setLoadedSignIn(true);
       setUserId(getUserId());
     });
   });
@@ -42,6 +44,9 @@ export default () => {
       });
   }
 
+  if (!loadedSignIn) {
+    return <></>;
+  }
   if (!userId) {
     return (
       <Jumbotron className="my-4">
