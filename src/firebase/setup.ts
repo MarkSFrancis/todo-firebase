@@ -4,7 +4,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDSQBLZx_N-OQePQidIFVj6M0dQAHzboEE",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "phoenix-auth-267f5.firebaseapp.com",
   databaseURL: "https://phoenix-auth-267f5.firebaseio.com",
   projectId: "phoenix-auth-267f5",

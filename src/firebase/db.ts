@@ -12,8 +12,6 @@ export function getDb() {
       host: "localhost:8080",
       ssl: false,
     });
-
-    console.log('Changing settings');
   }
 
   return (db = new Db(firestore));

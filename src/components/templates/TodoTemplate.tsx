@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import { getDb, getUserId, mapToData, onSignInOrOut } from "../../firebase";
-import SignIn from "../molecules/SignIn";
 import { Todo } from "../molecules/TodoItem";
 import TodoList from "../organisms/TodoList";
+import Welcome from "../organisms/Welcome";
 
 export default () => {
   const [loadedSignIn, setLoadedSignIn] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string | undefined>(undefined);
-  const [todos, setTodos] = useState<Todo[] | undefined>(undefined);
+  const [userId, setUserId] = useState<string | undefined>();
+  const [todos, setTodos] = useState<Todo[] | undefined>();
 
   useEffect(() => {
     return onSignInOrOut(() => {
-      setLoadedSignIn(true);
       setUserId(getUserId());
+      setLoadedSignIn(true);
     });
-  });
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -47,23 +46,15 @@ export default () => {
   if (!loadedSignIn) {
     return <></>;
   }
+
   if (!userId) {
     return (
-      <Jumbotron className="my-4">
-        <h1>Welcome to Todo!</h1>
-        <p>
-          This is a simple app, built with React and Firebase. In order to use
-          it, you'll need to sign in to Google.
-        </p>
-        <p>
-          <SignIn />
-        </p>
-      </Jumbotron>
+      <Welcome />
     );
   }
 
   if (!todos) {
-    return <h3>Loading..</h3>;
+    return <h3>Loading...</h3>;
   }
 
   return (
