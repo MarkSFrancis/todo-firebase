@@ -1,0 +1,16 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "build",
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "**",
+        "designation": "/index.html"
+      }
+    ]
+  }
+}
